@@ -20,4 +20,9 @@ export class ProductsService {
     const result = await newProduct.save();
     return result.id as string;
   }
+
+  async getAllProducts() {
+    const allProducts = await this.productModel.find();
+    return allProducts as Product[];
+  }
 }
