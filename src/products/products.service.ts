@@ -33,4 +33,9 @@ export class ProductsService {
     const allProducts = await this.productModel.find();
     return allProducts as Product[];
   }
+
+  async getProductDetails(productId: string) {
+    const product = await this.findOneProduct(productId);
+    return product;
+  }
 }
