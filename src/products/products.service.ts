@@ -12,11 +12,17 @@ export class ProductsService {
   ) {}
 
   private async findOneProduct(id: string): Promise<Product> {
-    const product = await this.productModel.findById(id);
+    let product;
+    try {
+      product = await this.productModel.findById(id);
+    } catch (err) {
+      throw new NotFoundException('Could not find product.');
+    }
+
     if (!product) {
       throw new NotFoundException('Could not find product.');
     }
-    return product;
+    return product.id;
   }
 
   async createProduct(prodName: string, price: number, updateDate: string) {
