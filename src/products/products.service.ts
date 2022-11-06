@@ -22,7 +22,7 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException('Could not find product.');
     }
-    return product.id;
+    return product;
   }
 
   async createProduct(prodName: string, price: number, updateDate: string) {
@@ -42,6 +42,30 @@ export class ProductsService {
 
   async getProductDetails(productId: string) {
     const product = await this.findOneProduct(productId);
-    return product;
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      updateDate: product.updateDate,
+    };
+  }
+
+  async updateProduct(
+    productId: string,
+    name: string,
+    price: number,
+    updateDate: string,
+  ) {
+    const updatedProduct = await this.findOneProduct(productId);
+    if (name) {
+      updatedProduct.name = name;
+    }
+    if (price) {
+      updatedProduct.price = price;
+    }
+    if (updateDate) {
+      updatedProduct.updateDate = updateDate;
+    }
+    updatedProduct.save();
   }
 }
