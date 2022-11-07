@@ -68,4 +68,8 @@ export class ProductsService {
     }
     updatedProduct.save();
   }
+
+  async deleteProduct(prodId: string) {
+    await this.productModel.deleteOne({ _id: prodId }).exec();
+  }
 }
