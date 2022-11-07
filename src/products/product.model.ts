@@ -7,8 +7,15 @@ export interface Product extends mongoose.Document {
   updateDate: string;
 }
 
-export const ProductSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  updateDate: { type: Date, default: Date.now },
-});
+export const ProductSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, maxLength: 100 },
+    price: { type: Number, required: true },
+  },
+  {
+    timestamps: {
+      createdAt: false,
+      updatedAt: 'updateDate',
+    },
+  },
+);

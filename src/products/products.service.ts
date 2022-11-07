@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product } from './product.model';
 import { Model } from 'mongoose';
@@ -31,6 +35,9 @@ export class ProductsService {
       price: price,
       updateDate: updateDate,
     });
+    if (prodName.length > 100) {
+      throw new NotAcceptableException('Max names length 100');
+    }
     const result = await newProduct.save();
     return result.id as string;
   }
