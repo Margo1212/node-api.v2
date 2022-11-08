@@ -11,11 +11,12 @@ export const ProductSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, maxLength: 100 },
     price: { type: Number, required: true },
+    updateDate: { type: Date, default: Date.now },
   },
-  {
-    timestamps: {
-      createdAt: false,
-      updatedAt: 'updateDate',
-    },
-  },
+  // {
+  //   timestamps: {
+  //     createdAt: false,
+  //     updatedAt: 'updateDate',
+  //   },
+  // },
 );

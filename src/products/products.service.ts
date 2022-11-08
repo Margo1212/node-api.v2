@@ -6,6 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Product } from './product.model';
 import { Model } from 'mongoose';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class ProductsService {
@@ -84,6 +85,8 @@ export class ProductsService {
     if (updateDate) {
       updatedProduct.updateDate = updateDate;
     }
+    const localDate = DateTime.local().plus({ hours: 1 }).toString();
+    updatedProduct.updateDate = localDate;
     updatedProduct.save();
   }
 
