@@ -40,7 +40,7 @@ export class ProductsService {
       throw new NotAcceptableException('Name is required!!');
     }
     if (prodName.length > 100) {
-      throw new NotAcceptableException('Max length 100 charakters');
+      throw new NotAcceptableException('Max length 100 characters');
     }
     if (!price) {
       throw new NotAcceptableException('Price is required!!');
@@ -76,7 +76,7 @@ export class ProductsService {
       updatedProduct.name = name;
     }
     if (name.length > 100) {
-      throw new NotAcceptableException('Max length 100 charakters');
+      throw new NotAcceptableException('Max length 100 characters');
     }
     if (price) {
       updatedProduct.price = price;
