@@ -20,12 +20,13 @@ export class ProductsService {
     try {
       product = await this.productModel.findById(id);
     } catch (err) {
-      throw new NotFoundException('Could not find product.');
+      throw new NotFoundException('Product not find.');
     }
 
     if (!product) {
-      throw new NotFoundException('Could not find product.');
+      throw new NotFoundException('Product not find.');
     }
+
     return product;
   }
 
@@ -35,9 +36,16 @@ export class ProductsService {
       price: price,
       updateDate: updateDate,
     });
-    if (prodName.length > 100) {
-      throw new NotAcceptableException('Max names length 100');
+    if (!prodName) {
+      throw new NotAcceptableException('Name is required!!');
     }
+    if (prodName.length > 100) {
+      throw new NotAcceptableException('Max length 100 charakters');
+    }
+    if (!price) {
+      throw new NotAcceptableException('Price is required!!');
+    }
+
     const result = await newProduct.save();
     return result.id as string;
   }
@@ -66,6 +74,9 @@ export class ProductsService {
     const updatedProduct = await this.findOneProduct(productId);
     if (name) {
       updatedProduct.name = name;
+    }
+    if (name.length > 100) {
+      throw new NotAcceptableException('Max length 100 charakters');
     }
     if (price) {
       updatedProduct.price = price;
